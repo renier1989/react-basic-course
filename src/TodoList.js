@@ -2,7 +2,7 @@ import React from 'react'
 
 function TodoList(props) {
   return (
-    <ul>
+    <ul className="TodoList">
       {props.children}
     </ul>
   )
