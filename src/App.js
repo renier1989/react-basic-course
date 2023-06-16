@@ -5,25 +5,47 @@ import { TodoButtonCreate } from "./TodoButtonCreate";
 import { TodoItem } from "./TodoItem";
 import React from "react";
 
-const defaultTodos = [
-  { text: "hola como estas ?", completed: false },
-  { text: "estoy muy bien gracias", completed: true },
-  { text: "Tienes planeado algo para mañana?", completed: true },
-  { text: "la verdad es que no tengo nada planeado.", completed: false },
-  { text: "REnIER vargas.", completed: false },
-  { text: "renier josue.", completed: false },
-];
+// const defaultTodos = [
+//   { text: "hola como estas ?", completed: false },
+//   { text: "estoy muy bien gracias", completed: true },
+//   { text: "Tienes planeado algo para mañana?", completed: true },
+//   { text: "la verdad es que no tengo nada planeado.", completed: false },
+//   { text: "REnIER vargas.", completed: false },
+//   { text: "renier josue.", completed: false },
+// ];
+
+// localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
+
+// localStorage.setItem('TODOS_V1',parsedTodos);
 
 function App() {
+  const todos_local = localStorage.getItem('TODOS_V1');
+  
+  let parsedTodos;
+
+  if(!todos_local){
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  }else{
+    parsedTodos = JSON.parse(todos_local);
+
+  }
+  
   const [searchValue, setSearchValue] = React.useState('');
   // console.log(searchValue);
 
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const [todos, setTodos] = React.useState(parsedTodos);
+  // const [todos, setTodos] = React.useState(defaultTodos);
   const completedTodos = todos.filter((todo)=> !!todo.completed === true).length;
   const totalTodos = todos.length;
   const searchedTodos = todos.filter((todo)=>(
     todo.text.toLowerCase().includes(searchValue.toLowerCase())
   ));
+
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS_V1',JSON.stringify(newTodos));
+    setTodos(newTodos);
+  }
 
   // esta funcion es para cambiar el status del item
   const chageStatusItem = (text) => {
@@ -35,7 +57,7 @@ function App() {
     // aqui filtro de la lista de todos que estan en el estado, a que item le dio click y que filtro por su index para poderle cambiar su status
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
     // aqui actualizo los todos que se marcaron
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   const deleteTodoItem = (text) => {
@@ -44,7 +66,7 @@ function App() {
       (todo) => todo.text === text
     );
     newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
   // const messageCounter = `You Have completed ${completedTodos} of ${totalTodos}`;
