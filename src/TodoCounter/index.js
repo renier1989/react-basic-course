@@ -1,4 +1,4 @@
-import './css/TodoCounter.css'
+import '../css/TodoCounter.css'
 
 function TodoCounter({total, completed}) {
   return (
