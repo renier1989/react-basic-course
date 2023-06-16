@@ -19,22 +19,21 @@ import React from "react";
 // localStorage.setItem('TODOS_V1',parsedTodos);
 
 function App() {
-  const todos_local = localStorage.getItem('TODOS_V1');
-  
-  let parsedTodos;
+  const todos_local = localStorage.getItem('TODOS_V1');  // creo una variable que se va a llenar con los datos del localStorage
+  let parsedTodos;   // creo un variable de inicio donde se van a guardar la lista de los TODOS
 
+  // aqui valido si es que existen datos en el localStorage sino es asi entonces creo la variable en el local o cargo la lista
   if(!todos_local){
     localStorage.setItem('TODOS_V1', JSON.stringify([]));
     parsedTodos = [];
   }else{
     parsedTodos = JSON.parse(todos_local);
-
   }
   
   const [searchValue, setSearchValue] = React.useState('');
   // console.log(searchValue);
 
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const [todos, setTodos] = React.useState(parsedTodos); //Aqui cargo la lista de los TODOS  que vienen del localstorage
   // const [todos, setTodos] = React.useState(defaultTodos);
   const completedTodos = todos.filter((todo)=> !!todo.completed === true).length;
   const totalTodos = todos.length;
@@ -42,6 +41,7 @@ function App() {
     todo.text.toLowerCase().includes(searchValue.toLowerCase())
   ));
 
+  // aqui guardo los datos de la lista tanto en el localStorage como el estado de react
   const saveTodos = (newTodos) => {
     localStorage.setItem('TODOS_V1',JSON.stringify(newTodos));
     setTodos(newTodos);
@@ -57,7 +57,7 @@ function App() {
     // aqui filtro de la lista de todos que estan en el estado, a que item le dio click y que filtro por su index para poderle cambiar su status
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
     // aqui actualizo los todos que se marcaron
-    saveTodos(newTodos);
+    saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
   };
 
   const deleteTodoItem = (text) => {
@@ -66,18 +66,9 @@ function App() {
       (todo) => todo.text === text
     );
     newTodos.splice(todoIndex, 1);
-    saveTodos(newTodos);
+    saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
   }
 
-  // const messageCounter = `You Have completed ${completedTodos} of ${totalTodos}`;
-
-  // const changeMessageComplete = () =>{
-
-  //   return messageCounter;
-  // }
-  
-  // const [messageComplete, setMessageComplete] = React.useState(false);
-  
   return (
     <> {/* esto es igual a usar las etiquetas <React.Fragment></React.Fragment> */}
       <TodoCounter completed={completedTodos} total={totalTodos} />
