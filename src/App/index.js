@@ -19,10 +19,16 @@ import { AppUI } from "./AppUI";
 
 
 function App() {
-  //aqui hago uso de mi custom Hook , debo tener el cuenta el orden como exporte los elemetos desdel el custom hook para llamarlos
-  // estos puedes tener cualquier nombre pero siempre respetando el orden de exportacion 
-  // por ejemplo : en la exportacion desde el hook es "item" aqui lo llamo "todos" igual para "saveItem" -> "saveTodos"
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1' , []); 
+  
+  // importante ahora el custom hook esta exportando en forma de objeto, quiere decir que al momento de recibir las propiedades
+  // estas propiedades deben tener el mismo nombre a como son enviadas 
+  // o usar la sintaxis para renombrar las propiedades de un objeto "item : todos,"" 
+  const {
+      item : todos, 
+      saveItem : saveTodos,
+      loading,
+      error,
+    } = useLocalStorage('TODOS_V1' , []); 
   
   const [searchValue, setSearchValue] = React.useState('');
   const completedTodos = todos.filter((todo)=> !!todo.completed === true).length;
@@ -53,9 +59,13 @@ function App() {
     saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
   }
 
+
+
   // creo un conponente que solo va a abstraer la parte de UI para los usuarios y en esta parte solo tendre la logica de la aplicacion 
   return (
     <AppUI 
+      loading={loading}
+      error={error}
       completedTodos={completedTodos}
       totalTodos={totalTodos}
       searchValue={searchValue}
