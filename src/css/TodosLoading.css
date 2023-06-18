@@ -1,0 +1,59 @@
+.loading-body {
+  background-color: #8080806e;
+  padding: 35px;
+  border-radius: 5px;
+  position:relative;
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.loading-check {
+  position : absolute;
+  left: 12px;
+}
+
+.loading-delete {
+  position: absolute;
+  top: -27px;
+  right: 10px;
+}
+
+.bg-a-1 {
+  background: linear-gradient(300deg,#e7ede7,#cecece,#acadac,#c8c8c8,#dfe3df,#cbcecb,#bababa);
+  background-size: 420% 420%;
+  animation: gradient-animation-1 7s ease infinite;
+}
+
+@keyframes gradient-animation-1 {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-a-2 {
+  background: linear-gradient(89deg,#e7ede7,#cecece,#acadac,#c8c8c8,#dfe3df,#cbcecb,#bababa,#bababa);
+  background-size: 480% 480%;
+  padding: 0px 15px 15px 15px;
+  border-radius: 21px;
+  animation: gradient-animation-2 8s ease infinite;
+}
+
+@keyframes gradient-animation-2 {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
