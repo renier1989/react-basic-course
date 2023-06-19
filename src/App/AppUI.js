@@ -8,6 +8,7 @@ import { TodosLoading } from "../TodosLoading";
 import { TodosError } from "../TodosError";
 import { EmptyTodos } from "../EmptyTodos";
 import { TodoContext } from "../TodoContext"; // importamos el contexto para poder usar todos los metodos que usaran los demas componentes
+import { Modal } from "../Modal";
 
 function AppUI() {
 const {
@@ -16,6 +17,8 @@ const {
   searchedTodos,
   chageStatusItem,
   deleteTodoItem,
+  openModal,
+  setOpenModal,
 } = React.useContext(TodoContext);
   return (
     <>
@@ -44,7 +47,13 @@ const {
           />
         ))}
       </TodoList>
-      <TodoButtonCreate />
+      <TodoButtonCreate setOpenModal={setOpenModal} />
+
+      {openModal && (
+        <Modal>
+          Aqui se muestra el Modal
+        </Modal>
+      )}
     </>
   );
 }

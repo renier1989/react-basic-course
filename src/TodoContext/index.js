@@ -25,6 +25,8 @@ const searchedTodos = todos.filter((todo)=>(
   todo.text.toLowerCase().includes(searchValue.toLowerCase())
 ));
 
+const [openModal, setOpenModal] = React.useState(false);
+
 // esta funcion es para cambiar el status del item
 const chageStatusItem = (text) => {
   const newTodos = [...todos]; // con esto hago una copie de la lista de los todos
@@ -60,6 +62,8 @@ const deleteTodoItem = (text) => {
             searchedTodos,
             chageStatusItem,
             deleteTodoItem,
+            openModal,
+            setOpenModal,
         }}>
             {/* este childre se convertira en los demas componente que consumiran todo desde el contexto  */}
             {children}
