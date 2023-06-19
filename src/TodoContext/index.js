@@ -27,6 +27,19 @@ const searchedTodos = todos.filter((todo)=>(
 
 const [openModal, setOpenModal] = React.useState(false);
 
+// esta funcion crear un nuevo todo de lo que haya escrito el usuario en el modal
+const addTodo = (text) => {
+  const newTodos = [...todos]; // con esto hago una copia de la lista de los todos
+  // aqui agrego al arreglo un nuevo todo task
+  newTodos.push({
+    text,
+    completed: false,
+  })
+  
+  // aqui actualizo los todos que se marcaron
+  saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
+}
+
 // esta funcion es para cambiar el status del item
 const chageStatusItem = (text) => {
   const newTodos = [...todos]; // con esto hago una copie de la lista de los todos
@@ -64,6 +77,7 @@ const deleteTodoItem = (text) => {
             deleteTodoItem,
             openModal,
             setOpenModal,
+            addTodo
         }}>
             {/* este childre se convertira en los demas componente que consumiran todo desde el contexto  */}
             {children}
