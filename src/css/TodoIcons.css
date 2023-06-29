@@ -14,6 +14,11 @@
     position: absolute;
     left: 12px;
   }
+  .Icon-container-edit {
+    position: absolute;
+    top: -24px;
+    right: 48px;
+  }
   .Icon-container-check--active {
     color: #4caf50;
   }
@@ -34,4 +39,7 @@
   }
   .Icon-container-check:hover .Icon-svg {
     fill: green;
+  }
+  .Icon-container-edit:hover .Icon-svg {
+    fill: rgb(0, 120, 200);
   }
