@@ -42,6 +42,11 @@ const addTodo = (text) => {
   saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
 }
 
+const getTodo = (id) => {
+  const todoIndex = todos.findIndex((todo) => todo.id === id);
+  return todos[todoIndex];
+}
+
 // esta funcion es para cambiar el status del item
 const editTodo = (id,newText) => {
   const newTodos = [...todos]; // con esto hago una copie de la lista de los todos
@@ -93,7 +98,8 @@ const deleteTodoItem = (id) => {
             openModal,
             setOpenModal,
             addTodo,
-            editTodo
+            editTodo,
+            getTodo,
         }}>
             {/* este childre se convertira en los demas componente que consumiran todo desde el contexto  */}
             {children}

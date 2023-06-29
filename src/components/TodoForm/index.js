@@ -4,7 +4,7 @@ import { TodoContext } from '../../components/TodoContext';
 import { useNavigate } from 'react-router-dom';
 
 
-function TodoForm({labelTitle, labelTextButton,submitEvent}) {
+function TodoForm({labelTitle, labelTextButton,submitEvent, defaultTodoText}) {
     const navigate = useNavigate();
     // Accedo al contexto para poder hacer uso de los metodo, variables y estados
     const {
@@ -14,7 +14,7 @@ function TodoForm({labelTitle, labelTextButton,submitEvent}) {
     } = React.useContext(TodoContext);
 
 
-    const [newTodoValue, setNewTodoValue] = React.useState(''); // creo un nuevo valor para saber que es lo que estoy escribiendo en el textarea y poder crear el nuevo Todo Task
+    const [newTodoValue, setNewTodoValue] = React.useState(defaultTodoText || ''); // creo un nuevo valor para saber que es lo que estoy escribiendo en el textarea y poder crear el nuevo Todo Task
 
     // metodo para controlar que el formulario no haga submit y recargue la pagina
     const onSumirForm = (event)=>{

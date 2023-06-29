@@ -45,7 +45,7 @@ const {
           <TodoItem
             todo={todo}
             key={todo.id}
-            onEditItem = {()=> navigate(`edit/${todo.id}`)}
+            onEditItem = {()=> navigate(`edit/${todo.id}`, {state : todo})} // aqui le paso una segunda propiedad son el state, asi le paso el todo en especifico para luego en la vista de editar pueda acceder al texto de todo.
             onComplete={() => chageStatusItem(todo.id)} // con esto paso una propiedad que sera la funcion que va a cambiarle el estado ala item
             onDeleteItem={() => deleteTodoItem(todo.id)} // con esto paso una propiedad que sera la funcion que va a eliminar un item de la lista de todos
           />
