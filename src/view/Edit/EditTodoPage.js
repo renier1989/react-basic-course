@@ -3,6 +3,7 @@ import { TodoForm } from "../../components/TodoForm";
 import { useLocation, useParams } from 'react-router-dom';
 import { TodoContext } from '../../components/TodoContext';
 import { Navigate } from 'react-router-dom';
+import { TodosLoading } from '../../components/TodosLoading';
 
 function EditTodoPage() {
   // const navigate = useNavigate();
@@ -18,7 +19,7 @@ function EditTodoPage() {
   if(location.state?.todo){ // aqui primero valido que exista algo en el location.state o en el location.state.todo
     todoText = location.state.todo.text;
   }else if(loading){ // si no se cumple lo primero, entonces muestro un loading. mientas encuentra informacion desde el locastorage para mostrar
-    return (<p>Cargando ....</p>);
+    return (<TodosLoading />);
   }else{ // y por ultimo obtengo la data que viene del contexto de algo que este almacenado en el localstorage.
     // aqui puedo hacer una validacion extra que me diga si no encuentra el todo con el id que se le esta pasando por la ruta , entonces que me redirija a la vista del home
     const todo = getTodo(id);
