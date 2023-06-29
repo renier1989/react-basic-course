@@ -42,10 +42,10 @@ const {
         {searchedTodos.map((todo) => (
           <TodoItem
             todo={todo}
-            key={todo.text}
+            key={todo.id}
             onEditItem = {()=> console.log('Edito el Todo')}
-            onComplete={() => chageStatusItem(todo.text)} // con esto paso una propiedad que sera la funcion que va a cambiarle el estado al item
-            onDeleteItem={() => deleteTodoItem(todo.text)} // con esto paso una propiedad que sera la funcion que va a eliminar un item de la lista de todos
+            onComplete={() => chageStatusItem(todo.id)} // con esto paso una propiedad que sera la funcion que va a cambiarle el estado ala item
+            onDeleteItem={() => deleteTodoItem(todo.id)} // con esto paso una propiedad que sera la funcion que va a eliminar un item de la lista de todos
           />
         ))}
       </TodoList>

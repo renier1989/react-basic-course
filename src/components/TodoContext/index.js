@@ -16,7 +16,7 @@ function TodoProvider({children}) {
     saveItem : saveTodos,
     loading,
     error,
-  } = useLocalStorage('TODOS_V1' , []); 
+  } = useLocalStorage('TODOS_V2' , []);  // aqui cabio el numero de la versio del parametro que va a almacenar los datos en el localstorage. antes esta TODOS_V1 pero esa version no trabajaba o almacenaba la lista de los todos con un id.
 
 const [searchValue, setSearchValue] = React.useState('');
 const completedTodos = todos.filter((todo)=> !!todo.completed === true).length;
@@ -29,9 +29,11 @@ const [openModal, setOpenModal] = React.useState(false);
 
 // esta funcion crear un nuevo todo de lo que haya escrito el usuario en el modal
 const addTodo = (text) => {
+  const id = newTodoId(); // llamo a una funcion que me va a generar un id en base a un fecha
   const newTodos = [...todos]; // con esto hago una copia de la lista de los todos
   // aqui agrego al arreglo un nuevo todo task
   newTodos.push({
+    id,
     text,
     completed: false,
   })
@@ -41,11 +43,11 @@ const addTodo = (text) => {
 }
 
 // esta funcion es para cambiar el status del item
-const chageStatusItem = (text) => {
+const chageStatusItem = (id) => {
   const newTodos = [...todos]; // con esto hago una copie de la lista de los todos
   // aqui hago la busqueda de los items por el texto como clave unica para saber cual es su index
   const todoIndex = newTodos.findIndex(
-    (todo) => todo.text === text
+    (todo) => todo.id === id
   );
   // aqui filtro de la lista de todos que estan en el estado, a que item le dio click y que filtro por su index para poderle cambiar su status
   newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
@@ -53,10 +55,10 @@ const chageStatusItem = (text) => {
   saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
 };
 
-const deleteTodoItem = (text) => {
+const deleteTodoItem = (id) => {
   const newTodos = [...todos];
   const todoIndex = newTodos.findIndex(
-    (todo) => todo.text === text
+    (todo) => todo.id === id
   );
   newTodos.splice(todoIndex, 1);
   saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
@@ -84,6 +86,11 @@ const deleteTodoItem = (text) => {
         </TodoContext.Provider>
     );
 
+}
+
+// funcion para generar ids en base a una fecha. tomando los milisegundos asi nunca se repetira el id de un todo
+function newTodoId(){
+  return Date.now();
 }
 
 export {TodoContext, TodoProvider};
