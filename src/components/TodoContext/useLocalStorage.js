@@ -3,12 +3,28 @@ import React from "react";
 // Esto es un custom hooks
 // esto va a recibir 2 parametros uno sera el itemName que asignara el nombre donde se almacenar las cosas en el localStorage ej: 'TODOS_V1'
 // tambien va a recibir un valor inicial que sera el initialValue , esto va a ser cualquier tipo de variable a ser almecenado en el localStorage
+
+
 function useLocalStorage(itemName ,initialValue){
-  // creo un estado donde pueda manejar lo que esta en el localstorage
-  const [item, setItem] = React.useState(initialValue); // ahora el estado inicial sera un array vacio
+
+  const [state , dispatch] = React.useReducer(reducer, initialState({initialValue}));
+
+  const {
+      item, loading, error
+  } = state ;
   
-  const [loading, setLoading] = React.useState(true); // creo el nuevo estado para manejar un mensaje de carga , esto se va a ejecutar apenas inicie la aplicacion
-  const [error, setError] = React.useState(false); // esto es un estado para manejar si hay un error, inicialmente estara en false para no mostrarle nada al usuario
+  // AQUI CREO LOS ACTIONCREATORS
+  const onError = ()=> dispatch({type: actionTypes.error});
+  const onLoading = ()=> dispatch({type: actionTypes.loading});
+  const onLoadItem = (parsedItem) => dispatch({type: actionTypes.loadItem, payload: parsedItem})
+
+  // // creo un estado donde pueda manejar lo que esta en el localstorage
+  // const [item, setItem] = React.useState(initialValue); // ahora el estado inicial sera un array vacio
+  // const [loading, setLoading] = React.useState(true); // creo el nuevo estado para manejar un mensaje de carga , esto se va a ejecutar apenas inicie la aplicacion
+  // const [error, setError] = React.useState(false); // esto es un estado para manejar si hay un error, inicialmente estara en false para no mostrarle nada al usuario
+
+  
+
 
   // con el useEffect ahora vamos a implementar que la lista se carguen al final y podamos darle al usuario un estado de carga
   React.useEffect(() => {
@@ -23,14 +39,18 @@ function useLocalStorage(itemName ,initialValue){
           parsedItem = initialValue;
         }else{
           parsedItem = JSON.parse(todos_local);
-          setItem(parsedItem); // aqui cambio el esta de los todos.
+          onLoadItem(parsedItem);
+          // setItem(parsedItem); // aqui cambio el esta de los todos.
         }
   
-  
-        setLoading(false); // si ya todo cargo cancelo la carga 
+        onLoading();
+        // setLoading(false); // si ya todo cargo cancelo la carga 
       } catch (error) {
-        setLoading(false); // si ya hubo un error igual debo cancelar la carga 
-        setError(true); // y puedo mostrar la propiedad error como true o mostrar el error exacto mandando error
+        // setLoading(false); // si ya hubo un error igual debo cancelar la carga 
+        onLoading();
+        onError();
+
+        // setError(true); // y puedo mostrar la propiedad error como true o mostrar el error exacto mandando error
         // setError(error); // y puedo mostrar la propiedad error como true o mostrar el error exacto mandando error
       }
     }, 2000);
@@ -39,8 +59,14 @@ function useLocalStorage(itemName ,initialValue){
   
     // aqui guardo los datos de la lista tanto en el localStorage como el estado de react
     const saveItem = (newItem) => {
-      localStorage.setItem(itemName,JSON.stringify(newItem));
-      setItem(newItem);
+      try {
+        localStorage.setItem(itemName,JSON.stringify(newItem));
+        onLoadItem(newItem);
+        // setItem(newItem);
+      } catch (error) {
+        onError();
+        
+      }
     }
   
     // al enviar mas de una propiedad se recomienda usar llaves y enviarlo como un objeto 
@@ -48,5 +74,45 @@ function useLocalStorage(itemName ,initialValue){
     return {item, saveItem, loading, error};
   
   }
+
+  // AQUI CREAMOS EL INICIALSTATE PARA PODER USAR LOS ESTADO DERIVADOS.
+  // CREO EL INITIALSTATE COMO UNA FUNCION PORQUE ESTE VA A RECIBIR UN INITIALVALUE
+  const initialState = ({initialValue}) => ({
+    item : initialValue,
+    loading : true,
+    error : false,
+  });
+
+  const actionTypes = {
+    loading : 'LOADING',
+    error : 'ERROR',
+    loadItem : 'LOADITEM',
+  }
+
+  const reducer = (state , action) => {
+    switch (action.type){
+      case  actionTypes.loading : 
+        return {
+          ...state,
+          loading: false
+        };
+      case actionTypes.error :
+        return {
+          ...state,
+          error : true,
+        };
+      case actionTypes.loadItem :
+        return {
+          ...state,
+          error : false,
+          loading : false,
+          item : action.payload,
+        };
+        default : 
+        return {...state}
+    }
+
+  }
+
 
   export {useLocalStorage};
