@@ -43,6 +43,19 @@ const addTodo = (text) => {
 }
 
 // esta funcion es para cambiar el status del item
+const editTodo = (id,newText) => {
+  const newTodos = [...todos]; // con esto hago una copie de la lista de los todos
+  // aqui hago la busqueda de los items por el texto como clave unica para saber cual es su index
+  const todoIndex = newTodos.findIndex(
+    (todo) => todo.id === id
+  );
+  // aqui filtro de la lista de todos que estan en el estado, a que item le dio click y que filtro por su index para poderle cambiar su status
+  newTodos[todoIndex].text = newText;
+  // aqui actualizo los todos que se marcaron
+  saveTodos(newTodos); // qui tengo que llamar a la nueva funcion que va a actalizar los la lista tanto en el localstorage como en el estado de react
+};
+
+// esta funcion es para cambiar el status del item
 const chageStatusItem = (id) => {
   const newTodos = [...todos]; // con esto hago una copie de la lista de los todos
   // aqui hago la busqueda de los items por el texto como clave unica para saber cual es su index
@@ -79,7 +92,8 @@ const deleteTodoItem = (id) => {
             deleteTodoItem,
             openModal,
             setOpenModal,
-            addTodo
+            addTodo,
+            editTodo
         }}>
             {/* este childre se convertira en los demas componente que consumiran todo desde el contexto  */}
             {children}
@@ -107,4 +121,4 @@ export {TodoContext, TodoProvider};
 
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
 
-// localStorage.setItem('TODOS_V1',parsedTodos);
+// localStorage.setItem('TODOS_V1',parsedTodos); 

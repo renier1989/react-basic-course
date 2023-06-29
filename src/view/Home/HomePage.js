@@ -10,16 +10,18 @@ import { EmptyTodos } from "../../components/EmptyTodos";
 import { TodoContext } from "../../components/TodoContext"; // importamos el contexto para poder usar todos los metodos que usaran los demas componentes
 import { Modal } from "../../components/Modal";
 import { TodoForm } from "../../components/TodoForm";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+ const navigate = useNavigate();
 const {
   loading,
   error,
   searchedTodos,
   chageStatusItem,
   deleteTodoItem,
-  openModal,
-  setOpenModal,
+  // openModal,
+  // setOpenModal,
 } = React.useContext(TodoContext);
   return (
     <>
@@ -43,19 +45,22 @@ const {
           <TodoItem
             todo={todo}
             key={todo.id}
-            onEditItem = {()=> console.log('Edito el Todo')}
+            onEditItem = {()=> navigate(`edit/${todo.id}`)}
             onComplete={() => chageStatusItem(todo.id)} // con esto paso una propiedad que sera la funcion que va a cambiarle el estado ala item
             onDeleteItem={() => deleteTodoItem(todo.id)} // con esto paso una propiedad que sera la funcion que va a eliminar un item de la lista de todos
           />
         ))}
       </TodoList>
-      <TodoButtonCreate setOpenModal={setOpenModal} />
+      <TodoButtonCreate 
+      onClick={() => navigate('/new')}
+      // setOpenModal={setOpenModal}
+      />
 
-      {openModal && (
+      {/* {openModal && (
         <Modal>
           <TodoForm />
         </Modal>
-      )}
+      )} */}
     </>
   );
 }

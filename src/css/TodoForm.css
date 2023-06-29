@@ -1,7 +1,8 @@
 form {
-    width: 90%;
+    /* width: 50%; */
     max-width: 300px;
-    background-color: #fff;
+    /* background-color: #fff; */
+    margin: 0 auto;
     padding: 33px 40px;
     display: flex;
     justify-content: center;
@@ -67,5 +68,7 @@ form {
   }
   
   .TodoForm-button--cancel {
-    background: transparent;
+    background: #fdaaaa;
+    box-shadow: 0px 5px 25px rgba(97, 218, 250, 0.5);
+    /* background: transparent; */
   }
