@@ -1,6 +1,6 @@
 import React from 'react'
-import '../css/TodoForm.css'
-import { TodoContext } from '../TodoContext';
+import '../../css/TodoForm.css'
+import { TodoContext } from '../../components/TodoContext';
 function TodoForm() {
     // Accedo al contexto para poder hacer uso de los metodo, variables y estados
     const {

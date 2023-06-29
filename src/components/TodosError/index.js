@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/TodosError.css'
+import '../../css/TodosError.css'
 
 function TodosError() {
   return (

@@ -1,6 +1,6 @@
-import '../css/TodoItem.css'
-import {CompleteIcon} from '../TodoIcon/CompleteIcon';
-import {DeleteIcon} from '../TodoIcon/DeleteIcon';
+import '../../css/TodoItem.css'
+import {CompleteIcon} from '../../components/TodoIcon/CompleteIcon';
+import {DeleteIcon} from '../../components/TodoIcon/DeleteIcon';
 
 function TodoItem({todo , onComplete, onDeleteItem}) {
     return (

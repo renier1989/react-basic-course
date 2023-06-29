@@ -1,17 +1,17 @@
 import React from "react";
-import { TodoCounter } from "../TodoCounter";
-import { TodoSearch } from "../TodoSearch";
-import { TodoList } from "../TodoList";
-import { TodoButtonCreate } from "../TodoButtonCreate";
-import { TodoItem } from "../TodoItem";
-import { TodosLoading } from "../TodosLoading";
-import { TodosError } from "../TodosError";
-import { EmptyTodos } from "../EmptyTodos";
-import { TodoContext } from "../TodoContext"; // importamos el contexto para poder usar todos los metodos que usaran los demas componentes
-import { Modal } from "../Modal";
-import { TodoForm } from "../TodoForm";
+import { TodoCounter } from "../../components/TodoCounter";
+import { TodoSearch } from "../../components/TodoSearch";
+import { TodoList } from "../../components/TodoList";
+import { TodoButtonCreate } from "../../components/TodoButtonCreate";
+import { TodoItem } from "../../components/TodoItem";
+import { TodosLoading } from "../../components/TodosLoading";
+import { TodosError } from "../../components/TodosError";
+import { EmptyTodos } from "../../components/EmptyTodos";
+import { TodoContext } from "../../components/TodoContext"; // importamos el contexto para poder usar todos los metodos que usaran los demas componentes
+import { Modal } from "../../components/Modal";
+import { TodoForm } from "../../components/TodoForm";
 
-function AppUI() {
+function HomePage() {
 const {
   loading,
   error,
@@ -59,4 +59,4 @@ const {
   );
 }
 
-export { AppUI };
+export { HomePage };
